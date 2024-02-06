@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,8 +34,43 @@ class Sortie
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infosSortie = null;
 
-    #[ORM\Column]
-    private ?int $idEtat = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $annulation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?etat $etat = null;
+
+    #[ORM\ManyToMany(targetEntity: participant::class, inversedBy: 'sorties')]
+    private Collection $participants;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?participant $organisateur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?campus $campus = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?lieu $lieu = null;
+
+    public function __construct()
+    {
+        $this->participant = new ArrayCollection();
+    }
+
+    public function getAnnulation(): ?string
+    {
+        return $this->annulation;
+    }
+
+    public function setAnnulation(?string $annulation): void
+    {
+        $this->annulation = $annulation;
+    }
+
 
     public function getId(): ?int
     {
@@ -112,15 +149,76 @@ class Sortie
         return $this;
     }
 
-    public function getIdEtat(): ?int
+    public function getEtat(): ?etat
     {
-        return $this->idEtat;
+        return $this->etat;
     }
 
-    public function setIdEtat(int $idEtat): static
+    public function setEtat(?etat $etat): static
     {
-        $this->idEtat = $idEtat;
+        $this->etat = $etat;
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, participant>
+     */
+    public function getParticipant(): Collection
+    {
+        return $this->participant;
+    }
+
+    public function addParticipant(participant $participant): static
+    {
+        if (!$this->participant->contains($participant)) {
+            $this->participant->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(participant $participant): static
+    {
+        $this->participant->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?participant
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?participant $organisateur): static
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getCampus(): ?campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?campus $campus): static
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getLieu(): ?lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?lieu $lieu): static
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
 }
