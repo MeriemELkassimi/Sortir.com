@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
@@ -32,10 +34,36 @@ class Participant
     private ?string $motDePasse = null;
 
     #[ORM\Column]
-    private ?bool $administrateur = null;
+    private array $roles = [];
 
     #[ORM\Column]
     private ?bool $actif = null;
+
+    #[ORM\Column(length:255)]
+    private ?string $image = null;
+
+    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participant')]
+    private Collection $sorties;
+
+    #[ORM\ManyToOne(inversedBy: 'participant')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $campus = null;
+
+
+    public function __construct()
+    {
+        $this->sorties = new ArrayCollection();
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
 
     public function getId(): ?int
     {
@@ -114,14 +142,18 @@ class Participant
         return $this;
     }
 
-    public function isAdministrateur(): ?bool
+    public function getRoles():array
     {
-        return $this->administrateur;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setAdministrateur(bool $administrateur): static
+    public function setRoles(array $roles): static
     {
-        $this->administrateur = $administrateur;
+        $this->roles = $roles;
 
         return $this;
     }
@@ -134,6 +166,45 @@ class Participant
     public function setActif(bool $actif): static
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): static
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
+            $sorty->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): static
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            $sorty->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): static
+    {
+        $this->campus = $campus;
 
         return $this;
     }
