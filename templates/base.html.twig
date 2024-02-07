@@ -1,4 +1,4 @@
-!doctype html>
+<!doctype html>
 <html lang="fr-FR">
 
 <head>
@@ -16,13 +16,18 @@
     <link rel="icon" href="">
 
     {% block extrastyles %}{% endblock %}
+
+    {% block javasripts %}
+        {% block importmap %} {{ importmap('app') }} {% endblock %}
+    {% endblock %}
+
 </head>
 <body>
 <div class="container">
     <header>
        {#  <h1><a href="{{ path("app_main") }}"><img src="" alt="Series!"></a></h1>
         {% include("inc/nav.html.twig") %}#}
-
+        <h2>Logo Sortir.com</h2>
     </header>
 
     {# read and display all flash messages #}
