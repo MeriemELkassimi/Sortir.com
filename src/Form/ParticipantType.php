@@ -20,15 +20,15 @@ class ParticipantType extends AbstractType
             ->add('password')
             ->add('nom')
             ->add('prenom')
-           // ->add('telephone')
+            ->add('telephone')
            // ->add('isActif')
             ->add('pseudo')
             //->add('image')
-            ->add('sorties', EntityType::class, [
-                'class' => Sortie::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
+            //->add('sorties', EntityType::class, [
+             //   'class' => Sortie::class,
+             //   'choice_label' => 'id',
+               // 'multiple' => true,
+           // ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'nom',
