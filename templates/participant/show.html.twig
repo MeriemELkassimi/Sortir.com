@@ -7,10 +7,9 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ participant.id }}</td>
-            </tr>
+            <h2>
+                {{ participant.pseudo }}
+            </h2>
             <tr>
                 <th>Nom</th>
                 <td>{{ participant.nom }}</td>
@@ -23,30 +22,24 @@
                 <th>Telephone</th>
                 <td>{{ participant.telephone }}</td>
             </tr>
-            <tr>
-                <th>Pseudo</th>
-                <td>{{ participant.pseudo }}</td>
-            </tr>
+
             <tr>
                 <th>Mail</th>
-                <td>{{ participant.mail }}</td>
+                <td>{{ participant.email }}</td>
             </tr>
+
             <tr>
-                <th>MotDePasse</th>
-                <td>{{ participant.motDePasse }}</td>
+                <th>Campus</th>
+                <td>{{ participant.campus.nom }}</td>
             </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ participant.roles ? participant.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Actif</th>
-                <td>{{ participant.actif ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ participant.image }}</td>
-            </tr>
+
+            {% if participant.image is not empty %}
+                <div>
+                    <img src="{{asset(participant.image) }}" alt="image_profil">
+
+                </div>
+            {% endif %}
+
         </tbody>
     </table>
 
