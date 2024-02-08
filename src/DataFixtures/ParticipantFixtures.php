@@ -29,7 +29,7 @@ class ParticipantFixtures extends Fixture implements FixtureGroupInterface
             $participant->setPseudo($faker->userName);
             $participant->setIsActif($faker->boolean);
             $participant->setPassword($faker->password);
-            $participant->setRoles(["ROLES_USER"]);
+            $participant->setRoles(["ROLE_USER"]);
             $participant->setImage('');
             $participant->setCampus($campus);
 
