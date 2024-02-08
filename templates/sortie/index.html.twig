@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sortie index{% endblock %}
+{% block title %}{{ parent() }} | Accueil{% endblock %}
 
 {% block body %}
-    <h1>Sortie index</h1>
+    <h1>Liste des sorties</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>DateHeureDebut</th>
-                <th>Duree</th>
-                <th>DateLimiteInscription</th>
-                <th>NbInscriptionsMax</th>
-                <th>InfosSortie</th>
+                <th>Date et heure de début</th>
+                <th>Durée</th>
+                <th>Date limite d'inscription</th>
+                <th>Nombre d'inscriptions maximum</th>
+                <th>Infos sortie</th>
                 <th>Annulation</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -37,11 +37,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="9">Pas de sortie enregistrée!</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_sortie_new') }}">Create new</a>
+    <a href="{{ path('app_sortie_new') }}">Créér</a>
 {% endblock %}
