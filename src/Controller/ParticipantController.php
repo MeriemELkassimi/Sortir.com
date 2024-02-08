@@ -26,6 +26,11 @@ class ParticipantController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $participant = new Participant();
+        $participant->setRoles(['ROLE_USER']);
+        $participant->setTelephone('');
+        $participant->setIsActif(true);
+        $participant->setImage(null);
+
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 

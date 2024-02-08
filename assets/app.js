@@ -8,3 +8,11 @@ import './bootstrap.js';
 import './styles/app.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+/* Impoprt perso
+
+ */
+import './images/*';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/bootstrap.index.js';
+
