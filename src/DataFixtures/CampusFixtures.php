@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Campus;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class CampusFixtures extends Fixture
+class CampusFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -20,5 +21,9 @@ class CampusFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+    public static function getGroups(): array
+    {
+        return ['groupCampus'];
     }
 }
