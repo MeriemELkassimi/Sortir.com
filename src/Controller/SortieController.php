@@ -17,10 +17,13 @@ class SortieController extends AbstractController
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
     public function index(SortieRepository $sortieRepository): Response
     {
+        $sorties = $sortieRepository->findAll();
+        dump($sorties);
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
         ]);
     }
+
 
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -45,6 +48,7 @@ class SortieController extends AbstractController
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
     public function show(Sortie $sortie): Response
     {
+        dump($sortie);
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
