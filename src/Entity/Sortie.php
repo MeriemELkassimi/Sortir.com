@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -26,6 +27,7 @@ class Sortie
     private ?int $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\LessThan(propertyPath:"dateHeureDebut")]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
@@ -41,7 +43,7 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?etat $etat = null;
 
-    #[ORM\ManyToMany(targetEntity: participant::class, inversedBy: 'sorties')]
+    #[ORM\ManyToMany(targetEntity: Participant::class, inversedBy: 'sorties')]
     private Collection $participants;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
@@ -58,7 +60,7 @@ class Sortie
 
     public function __construct()
     {
-        $this->participant = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function getAnnulation(): ?string
@@ -115,7 +117,7 @@ class Sortie
 
     public function getDateLimiteInscription(): ?\DateTimeInterface
     {
-        return $this->datelimiteInscription;
+        return $this->dateLimiteInscription;
     }
 
     public function setDateLimiteInscription(\DateTimeInterface $dateLimiteInscription): static
@@ -164,15 +166,15 @@ class Sortie
     /**
      * @return Collection<int, participant>
      */
-    public function getParticipant(): Collection
+    public function getParticipants(): Collection
     {
-        return $this->participant;
+        return $this->participants;
     }
 
     public function addParticipant(participant $participant): static
     {
-        if (!$this->participant->contains($participant)) {
-            $this->participant->add($participant);
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
         }
 
         return $this;
@@ -180,7 +182,7 @@ class Sortie
 
     public function removeParticipant(participant $participant): static
     {
-        $this->participant->removeElement($participant);
+        $this->participants->removeElement($participant);
 
         return $this;
     }
