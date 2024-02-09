@@ -49,7 +49,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
-    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participant')]
+    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participant',cascade:['persist'])]
     private Collection $sorties;
 
     #[ORM\ManyToOne(inversedBy: 'participant')]
@@ -174,7 +174,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsActif(): ?bool
+    public function isActif(): ?bool
     {
         return $this->isActif;
     }
