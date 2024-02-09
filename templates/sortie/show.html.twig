@@ -39,8 +39,10 @@
                 <th>Annulation</th>
                 <td>{{ sortie.annulation }}</td>
             </tr>
+
         </tbody>
     </table>
+    {{ sortie.participants.count }}
 
     <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
 
