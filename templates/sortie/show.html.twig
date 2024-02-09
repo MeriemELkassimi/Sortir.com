@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sortie{% endblock %}
+{% block title %}{{ parent() }} | Sortie{% endblock %}
 
 {% block body %}
     <h1>Sortie</h1>
@@ -16,23 +16,23 @@
                 <td>{{ sortie.nom }}</td>
             </tr>
             <tr>
-                <th>DateHeureDebut</th>
+                <th>Date et heure de début</th>
                 <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Duree</th>
+                <th>Durée</th>
                 <td>{{ sortie.duree }}</td>
             </tr>
             <tr>
-                <th>DateLimiteInscription</th>
+                <th>Date limite d'inscription</th>
                 <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>NbInscriptionsMax</th>
+                <th>Nombre d'inscriptions maximum</th>
                 <td>{{ sortie.nbInscriptionsMax }}</td>
             </tr>
             <tr>
-                <th>InfosSortie</th>
+                <th>Infos sortie</th>
                 <td>{{ sortie.infosSortie }}</td>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_sortie_index') }}">back to list</a>
+    <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
 
     <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
 

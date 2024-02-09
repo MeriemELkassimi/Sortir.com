@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ville{% endblock %}
+{% block title %}{{ parent() }} | Ville{% endblock %}
 
 {% block body %}
     <h1>Ville</h1>
@@ -16,13 +16,13 @@
                 <td>{{ ville.nom }}</td>
             </tr>
             <tr>
-                <th>CodePostal</th>
+                <th>Code postal</th>
                 <td>{{ ville.codePostal }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_ville_index') }}">back to list</a>
+    <a href="{{ path('app_ville_index') }}">Retour à la liste</a>
 
     <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">edit</a>
 
