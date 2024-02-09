@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Etat{% endblock %}
+{% block title %}{{ parent() }} | Etat{% endblock %}
 
 {% block body %}
     <h1>Etat</h1>
@@ -12,13 +12,13 @@
                 <td>{{ etat.id }}</td>
             </tr>
             <tr>
-                <th>Libelle</th>
+                <th>Libéllé</th>
                 <td>{{ etat.libelle }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_etat_index') }}">back to list</a>
+    <a href="{{ path('app_etat_index') }}">Retour à la liste</a>
 
     <a href="{{ path('app_etat_edit', {'id': etat.id}) }}">edit</a>
 
