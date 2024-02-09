@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Participant;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
