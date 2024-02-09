@@ -10,8 +10,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&family=Roboto:wght@100&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="">
-    <link rel="stylesheet" href="">
+
+    <link rel="stylesheet" href="{{ asset('style/app.css') }}">
 
     <link rel="icon" href="">
 
@@ -23,31 +23,46 @@
 
 </head>
 <body>
-<div class="container">
-    <header>
-       {#  <h1><a href="{{ path("app_main") }}"><img src="" alt="Series!"></a></h1>
-        {% include("inc/nav.html.twig") %}#}
-        <h2>Logo Sortir.com</h2>
-    </header>
 
-    {# read and display all flash messages #}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash flash-{{ label }}">
-                {{ message }}
-            </div>
+<header>
+    {#  {% include("inc/header.html.twig") %}
+
+    {% include("inc/usernav.html.twig") %}#}
+
+    <div class="container">
+        <div class="header-top">
+            <h1 class="header-logo">
+                {% if (app.user) %}
+                    <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/logo.pnvg') }}" alt="Sortir.com" title="Accueil"> Sortir.com</a>
+                {% else %}
+                    <img src="{{ asset('img/logo.png') }}" alt="logo">
+                {% endif %}
+            </h1>
+            {{ include('inc/usernav.html.twig') }}
+        </div>
+        {{ include('inc/nav.html.twig') }}
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        {# read and display all flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-
-
-
-    <main>
+    </div>
+    <div class="container">
         {% block body %}{% endblock %}
-    </main>
-    <footer>
-        {#  {% include('inc/nav.html.twig') %}#}
-        <div>&copy; {{ "now" | date("Y") }} Sortir.com!</div>
-    </footer>
-</div>
+    </div>
+</main>
+
+<footer>
+   <div>&copy; {{ "now" | date("Y") }} Sortir.com!</div>
+</footer>
+
 </body>
 </html>

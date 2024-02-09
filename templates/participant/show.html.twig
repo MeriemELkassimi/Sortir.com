@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Participant{% endblock %}
+{% block title %}{{ parent() }} | Participant{% endblock %}
 
 {% block body %}
     <h1>Participant</h1>
@@ -15,11 +15,11 @@
                 <td>{{ participant.nom }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
+                <th>Prénom</th>
                 <td>{{ participant.prenom }}</td>
             </tr>
             <tr>
-                <th>Telephone</th>
+                <th>Téléphone</th>
                 <td>{{ participant.telephone }}</td>
             </tr>
 
@@ -36,14 +36,13 @@
             {% if participant.image is not empty %}
                 <div>
                     <img src="{{asset(participant.image) }}" alt="image_profil">
-
                 </div>
             {% endif %}
 
         </tbody>
     </table>
 
-    <a href="{{ path('app_participant_index') }}">back to list</a>
+    <a href="{{ path('app_participant_index') }}">Retour à la liste</a>
 
     <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
 
