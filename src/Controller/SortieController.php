@@ -18,7 +18,6 @@ class SortieController extends AbstractController
     public function index(SortieRepository $sortieRepository): Response
     {
         $sorties = $sortieRepository->findAll();
-        dump($sorties);
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
         ]);
@@ -48,7 +47,6 @@ class SortieController extends AbstractController
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
     public function show(Sortie $sortie): Response
     {
-        dump($sortie);
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
