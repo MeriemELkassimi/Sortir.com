@@ -23,15 +23,15 @@
             <tr>
 
                 <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
+                <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d/m/Y - H:s') : '' }}</td>
+                <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d/m/Y') : '' }}</td>
                 <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etat.libelle}}</td>
                 <td>A faire</td>
                 <td>{{ sortie.organisateur.nom }}</td>
                 <td>
-                    <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">show</a>
-                    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
+                    <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">Afficher</a>
+                    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -42,5 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_sortie_new') }}">Créér</a>
+    <a href="{{ path('app_sortie_new') }}">Créer</a>
 {% endblock %}
