@@ -196,5 +196,18 @@ tr {
 form > div > div{
     margin-top: 15px;
 }
-
-
+form > div {
+    margin-top: 15px;
+}
+.icone-actif {
+    width: 75px;
+    text-align: center;
+}
+.icone-actif img {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+}
+#sortie label {
+    width: 200px;
+}
