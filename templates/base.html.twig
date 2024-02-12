@@ -25,15 +25,11 @@
 <body>
 
 <header>
-    {#  {% include("inc/header.html.twig") %}
-
-    {% include("inc/usernav.html.twig") %}#}
-
     <div class="container">
         <div class="header-top">
             <h1 class="header-logo">
                 {% if (app.user) %}
-                    <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/logo.pnvg') }}" alt="Sortir.com" title="Accueil"> Sortir.com</a>
+                    <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/logo.png') }}" alt="Sortir.com" title="Accueil"></a>
                 {% else %}
                     <img src="{{ asset('img/logo.png') }}" alt="logo">
                 {% endif %}

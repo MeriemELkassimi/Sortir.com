@@ -14,10 +14,10 @@
                 <th>Téléphone</th>
                 <th>Pseudo</th>
                 <th>Mail</th>
-                <th>Mot de passe</th>
+                <!-- <th>Mot de passe</th>   -->
                 <th>Roles</th>
                 <th>Actif</th>
-                <th>Image</th>
+                <!--<th>Image</th>    -->
                 <th>Campus</th>
                 <th>Actions</th>
             </tr>
@@ -31,14 +31,23 @@
                 <td>{{ participant.telephone }}</td>
                 <td>{{ participant.pseudo }}</td>
                 <td>{{ participant.email }}</td>
-                <td>{{ participant.password }}</td>
+                <!--  <td>{{ participant.password }}</td>   -->
                 <td>{{ participant.roles ? participant.roles|json_encode : '' }}</td>
-                <td>{{ participant.isActif ? 'Yes' : 'No' }}</td>
-                <td>{{ participant.image }}</td>
+                <!--  <td>{{ participant.isActif ? 'Yes' : 'No' }}</td>   -->
+
+                <td class="icone-actif">
+                {% if (participant.isActif == 1) %}
+                    <img src="{{ asset('img/green-ok.png') }}" alt="actif">
+                {% else %}
+                    <img src="{{ asset('img/cross-check.webp') }}" alt="inactif">
+                {% endif %}
+                </td>
+
+                <!--  <td>{{ participant.image }}</td> -->
                 <td>{{ participant.campus.nom }}</td>
                 <td>
-                    <a href="{{ path('app_participant_show', {'id': participant.id}) }}">show</a>
-                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
+                    <a href="{{ path('app_participant_show', {'id': participant.id}) }}">Afficher</a>
+                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

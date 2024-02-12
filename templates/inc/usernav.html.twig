@@ -1,17 +1,10 @@
 <div class="user-nav">
 
-    <div class="user-logo">
-        <div>PseudoTest</div>
-    </div>
-    <div class="user-date">{{ "now" | date("d/m/Y") }}</div>
-
-
     {% if (app.user) %}
         <div class="user-logo">
-            <div>PseudoTest</div>
+            {{ app.user.prenom }} {{ app.user.nom }}
         </div>
         <div>{{ "now" | date("d/m/Y") }}</div>
-
     {% endif %}
 
 </div>
