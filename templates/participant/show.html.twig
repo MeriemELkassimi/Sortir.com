@@ -41,8 +41,14 @@
 
         </tbody>
     </table>
+    {% if  is_granted('ROLE_ADMIN')%}
+        <a href="{{ path('app_participant_index') }}">Retour à la liste</a>
+     {%else%}
+        <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
+    {% endif %}
 
-    <a href="{{ path('app_participant_index') }}">Retour à la liste</a>
+
+
 
     <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
 
