@@ -3,7 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,12 +18,28 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateHeureDebut')
-            ->add('duree')
-            ->add('dateLimiteInscription')
-            ->add('nbInscriptionsMax')
-            ->add('infosSortie')
-            ->add('annulation')
+            ->add('dateHeureDebut',DateTimeType::class, [
+                'label' => 'Date et heure de début',
+                'html5' => true,
+                'widget' => 'single_text'
+            ])
+            ->add('duree', null, [
+                'label' => 'Durée (min)',
+            ])
+
+            ->add('dateLimiteInscription',DateType::class, [
+                 'label' => 'Date limite d\'inscription',
+                 'html5' => true,
+                 'widget' => 'single_text'
+            ])
+            ->add('nbInscriptionsMax', null, [
+                'label' => 'Nombre de places'
+            ])
+            ->add('infosSortie',TextareaType::class, [
+                'label' => 'Description et infos',
+                'attr' => ['rows' => 3]
+            ])
+
         ;
     }
 

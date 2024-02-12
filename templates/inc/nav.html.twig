@@ -1,43 +1,20 @@
 
 <nav class="header-nav">
-{# Bonne version
+
    {% if (app.user) %}
+
         <a href="{{ path('app_sortie_index') }}" title="Accueil">Accueil</a>
-        <a href="{{ path('app_participant_index') }}" title="Mon profil">Mon profil</a>
-        <a href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
+        <a href="{{ path('app_participant_show', {'id': app.user.id}) }}" title="Mon profil">Mon profil</a>
 
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('app_ville_index') }}" title="Villes">Villes</a>
             <a href="{{ path('app_campus_index') }}" title="Campus">Campus</a>
-            <a href="{{ path('app_participant_index') }}" title="Participants">Participant</a>
+            <a href="{{ path('app_participant_index') }}" title="Participants">Participants</a>
         {% endif %}
+
+        <a href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
 
   {% endif %}
-    #}
-
-
-{#
-        <a href="{{ path('app_sortie_index') }}" title="Accueil">Accueil</a>
-        <a href="{{ path('app_participant_index') }}" title="Mon profil">Mon profil</a>
-        <a href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
-
-        {% if is_granted("ROLE_ADMIN") %}
-            <a href="{{ path('app_ville_index') }}" title="Villes">Villes</a>
-            <a href="{{ path('app_campus_index') }}" title="Campus">Campus</a>
-            <a href="{{ path('app_participant_index') }}" title="Participants">Participant</a>
-        {% endif %}
-    #}
-
-    <a href="{{ path('app_sortie_index') }}" title="Accueil">Accueil</a>
-    <a href="{{ path('app_participant_index') }}" title="Mon profil">Mon profil</a>
-    <a href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
-
-
-        <a href="{{ path('app_ville_index') }}" title="Villes">Villes</a>
-        <a href="{{ path('app_campus_index') }}" title="Campus">Campus</a>
-        <a href="{{ path('app_participant_index') }}" title="Participants">Participants</a>
-
-
 
 </nav>
 
