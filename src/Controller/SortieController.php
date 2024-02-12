@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Form\FiltersSortiesFormType;
 use App\Form\SortieType;
+use App\Entity\FiltersSorties;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,12 +16,27 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
-    #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
-    public function index(SortieRepository $sortieRepository): Response
+    #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
+    public function index(Request $request, SortieRepository $sortieRepository): Response
     {
-        $sorties = $sortieRepository->findAll();
+        $oFilters = new FiltersSorties();
+        $form = $this->createForm(FiltersSortiesFormType::class, $oFilters);
+        $form->handleRequest($request);
+        $oUser = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sorties = $sortieRepository->findFilteredSorties($oFilters, $oUser);
+        }
+        else
+        {
+            $sorties = $sortieRepository->findAll($oFilters, $oUser);
+            //$sorties = $sortieRepository->findCurrentSorties();
+        }
+
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository->findAll(),
+            'sorties' => $sorties,
+            'filtersForm' => $form->createView(),
+            //'sorties' => $sortieRepository->findAll(),
         ]);
     }
 
