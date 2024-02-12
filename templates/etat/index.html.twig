@@ -3,9 +3,9 @@
 {% block title %}{{ parent() }} | Etats{% endblock %}
 
 {% block body %}
-    <h1>Liste des états</h1>
+    <h4>Liste des états</h4>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
@@ -18,7 +18,7 @@
             <tr>
                 <td>{{ etat.id }}</td>
                 <td>{{ etat.libelle }}</td>
-                <td>
+                <td class="lienTableau">
                     <a href="{{ path('app_etat_show', {'id': etat.id}) }}">Afficher</a>
                     <a href="{{ path('app_etat_edit', {'id': etat.id}) }}">Modifier</a>
                 </td>
@@ -31,5 +31,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_etat_new') }}">Créer</a>
+    <a href="{{ path('app_etat_new') }}"><button class="btnAppPerso">
+            Créer
+        </button></a>
 {% endblock %}

@@ -3,11 +3,13 @@
 {% block title %}{{ parent() }} | Modification d'un état{% endblock %}
 
 {% block body %}
-    <h1>Modification de l'état</h1>
+    <h4>Modification de l'état</h4>
 
     {{ include('etat/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_etat_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_etat_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 
     {{ include('etat/_delete_form.html.twig') }}
 {% endblock %}

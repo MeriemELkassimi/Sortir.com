@@ -3,9 +3,9 @@
 {% block title %}{{ parent() }} | Participants {% endblock %}
 
 {% block body %}
-    <h1>Liste des participants</h1>
+    <h4>Liste des participants</h4>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
@@ -45,7 +45,7 @@
 
                 <!--  <td>{{ participant.image }}</td> -->
                 <td>{{ participant.campus.nom }}</td>
-                <td>
+                <td class="lienTableau">
                     <a href="{{ path('app_participant_show', {'id': participant.id}) }}">Afficher</a>
                     <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
                 </td>
@@ -58,5 +58,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_participant_new') }}">Créer</a>
+    <a href="{{ path('app_participant_new') }}"><button class="btnAppPerso">
+            Créer
+        </button></a>
 {% endblock %}

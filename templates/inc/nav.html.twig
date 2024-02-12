@@ -8,7 +8,9 @@
 
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('app_ville_index') }}" title="Villes">Villes</a>
+            <a href="{{ path('app_lieu_index') }}" title="Lieux">Lieux</a>
             <a href="{{ path('app_campus_index') }}" title="Campus">Campus</a>
+            <a href="{{ path('app_etat_index') }}" title="Etat">Etats</a>
             <a href="{{ path('app_participant_index') }}" title="Participants">Participants</a>
         {% endif %}
 
