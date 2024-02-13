@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Entity\Participant;
 use App\Form\FiltersSortiesFormType;
 use App\Form\SortieType;
 use App\Entity\FiltersSorties;
@@ -94,6 +95,19 @@ class SortieController extends AbstractController
             $entityManager->remove($sortie);
             $entityManager->flush();
         }
+
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    #[Route('/participant-inscrire/{id}', name: 'app_sortie_addParticipant', methods: ['GET'])]
+    public function addParticipantSortie(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+
+            $participant = $this->getUser();
+            $sortie->addParticipant($participant);
+            $entityManager->persist($participant);
+            $entityManager->flush();
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
