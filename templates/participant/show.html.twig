@@ -3,9 +3,9 @@
 {% block title %}{{ parent() }} | Participant{% endblock %}
 
 {% block body %}
-    <h1>Participant</h1>
+    <h4>Participant</h4>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <tbody>
             <h2>
                 {{ participant.pseudo }}
@@ -41,10 +41,21 @@
 
         </tbody>
     </table>
+    {% if  is_granted('ROLE_ADMIN')%}
+        <a href="{{ path('app_participant_index') }}"><button class="btnAppPerso">
+                Retour à la liste
+            </button></a>
+     {%else%}
+        <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">
+                Retour à la liste
+            </button></a>
+    {% endif %}
 
-    <a href="{{ path('app_participant_index') }}">Retour à la liste</a>
-
-    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
+    <div>
+        <a href="{{ path('app_participant_edit', {'id': participant.id}) }}"><button class="btnAppPerso">
+            Modifier
+        </button></a>
+    </div>
 
     {{ include('participant/_delete_form.html.twig') }}
 {% endblock %}

@@ -3,9 +3,11 @@
 {% block title %}{{ parent() }} |Nouveau lieu{% endblock %}
 
 {% block body %}
-    <h1>Création d'un lieu</h1>
+    <h4>Création d'un lieu</h4>
 
     {{ include('lieu/_form.html.twig') }}
 
-    <a href="{{ path('app_lieu_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_lieu_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 {% endblock %}
