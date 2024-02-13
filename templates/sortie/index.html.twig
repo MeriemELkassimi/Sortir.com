@@ -51,11 +51,13 @@
                     {% if sortie.organisateur == app.user %}
                         <a href="{{ path('app_sortie_edit', {id: sortie.id}) }}">Modifier</a>
                     {% endif %}
-                    {#{% if inscrit %}
+
+                    {% if inscrit %}
                         <a href="{{ path('app_sortie_removeParticipant', {id: sortie.id}) }}">Se désister</a>
                     {% else %}
                           <a href="{{ path('app_sortie_addParticipant', {id: sortie.id}) }}">S'inscrire</a>
-                    {% endif %}#}
+                    {% endif %}
+
                 </td>
 
 

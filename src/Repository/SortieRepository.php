@@ -35,11 +35,24 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter('date_fin', $oFilters->getDateFin())
             ->setParameter('date_debut', $oFilters->getDateDebut());
 
-        /*if ($oFilters->isPassees()) {
+        if ($oFilters->isPassees()) {
             $queryBuilder
-                ->andWhere('sortie.etat.id() = :etat_passee')
-                ->setParameter('etat_passee', 'Passée');
-        }*/
+                ->andWhere('sortie.etat = :etat_passee')
+                ->setParameter('etat_passee', 5);
+        }
+
+        if ($oFilters->isOrganisateur()) {
+            $queryBuilder
+                ->andWhere('sortie.organisateur = :orga')
+                ->setParameter('orga', true);
+        }
+
+        if ($oFilters->isInscrit()) {
+            $queryBuilder
+                ->join('sortie.participants', 'participant')
+                ->andWhere('participant.id = :insc')
+                ->setParameter('insc',true);
+        }
 
 
             //->setParameter('etat_passee', $oFilters->isPassees())
@@ -47,6 +60,8 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->orderBy('sortie.id', 'ASC')
             ->setMaxResults(10);
         return $queryBuilder->getQuery()->getResult();
+
+
 
 
            /* $this->createQueryBuilder('sortie')

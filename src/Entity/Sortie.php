@@ -58,6 +58,7 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?lieu $lieu = null;
 
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -171,7 +172,7 @@ class Sortie
         return $this->participants;
     }
 
-    public function addParticipant(participant $participant): static
+    public function addParticipant(Participant $participant): static
     {
         if (!$this->participants->contains($participant)) {
             $this->participants->add($participant);
@@ -180,7 +181,7 @@ class Sortie
         return $this;
     }
 
-    public function removeParticipant(participant $participant): static
+    public function removeParticipant(Participant $participant): static
     {
         $this->participants->removeElement($participant);
 
