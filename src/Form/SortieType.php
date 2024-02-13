@@ -2,8 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
-
+use App\Entity\Ville;
+use App\Repository\CampusRepository;
+use App\Repository\LieuRepository;
+use App\Repository\VilleRepository;
+use ContainerJfr82eX\getVille2Service;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -40,7 +46,29 @@ class SortieType extends AbstractType
                 'attr' => ['rows' => 3]
             ])
 
-        ;
+            ->add('lieu', EntityType::class, [
+                'label' => 'Lieu',
+                'class' => Lieu::class, 'choice_label' => 'nom',
+                'required' => false,
+                'placeholder' => 'Sélectionner un lieu',
+                'query_builder' => function (LieuRepository  $lieuRepository) {
+                    return $lieuRepository->createQueryBuilder('l')->orderBy('l.nom', 'ASC');
+                }
+            ])
+
+            ->add('ville', EntityType::class, [
+                'label' => 'Ville',
+                'class' =>  Ville::class,
+                'mapped' => false,
+                'choice_label' => 'ville',
+                'required' => false,
+                'placeholder' => 'Sélectionner une ville',
+                'query_builder' => function (VilleRepository  $villeRepository) {
+                    return $villeRepository->createQueryBuilder('v')->orderBy('v.nom', 'ASC');
+            }
+            ])
+    ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
