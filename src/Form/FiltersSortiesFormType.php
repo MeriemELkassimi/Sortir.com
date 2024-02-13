@@ -22,7 +22,7 @@ class FiltersSortiesFormType extends AbstractType
                 'label' => 'Campus',
                 'class' => Campus::class, 'choice_label' => 'nom',
                 'required' => false,
-                'placeholder' => 'Selectioner un campus',
+                'placeholder' => 'Selectionner un campus',
                 'query_builder' => function (CampusRepository  $campusRepository) {
                     return $campusRepository->createQueryBuilder('c')->orderBy('c.nom', 'ASC');
                 },
