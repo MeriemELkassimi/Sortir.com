@@ -3,9 +3,11 @@
 {% block title %}{{ parent() }} | Nouvel état{% endblock %}
 
 {% block body %}
-    <h1>Création d'un état</h1>
+    <h4>Création d'un état</h4>
 
     {{ include('etat/_form.html.twig') }}
 
-    <a href="{{ path('app_etat_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_etat_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 {% endblock %}

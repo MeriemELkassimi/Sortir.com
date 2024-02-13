@@ -3,9 +3,11 @@
 {% block title %}{{ parent() }} | Nouveau participant{% endblock %}
 
 {% block body %}
-    <h1>Création d'un participant</h1>
+    <h4>Création d'un participant</h4>
 
     {{ include('participant/_form.html.twig') }}
 
-    <a href="{{ path('app_participant_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_participant_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 {% endblock %}

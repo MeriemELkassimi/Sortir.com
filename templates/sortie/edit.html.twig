@@ -3,11 +3,13 @@
 {% block title %}{{ parent() }} | Modification d'une sortie{% endblock %}
 
 {% block body %}
-    <h1>Modification de la sortie</h1>
+    <h4>Modification de la sortie</h4>
 
     {{ include('sortie/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 
     {{ include('sortie/_delete_form.html.twig') }}
 {% endblock %}

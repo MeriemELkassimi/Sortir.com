@@ -3,11 +3,13 @@
 {% block title %}{{ parent() }} | Modification d'un lieu{% endblock %}
 
 {% block body %}
-    <h1>Modification du lieu</h1>
+    <h4>Modification du lieu</h4>
 
     {{ include('lieu/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_lieu_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_lieu_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 
     {{ include('lieu/_delete_form.html.twig') }}
 {% endblock %}

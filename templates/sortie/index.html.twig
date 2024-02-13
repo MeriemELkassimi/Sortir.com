@@ -3,11 +3,10 @@
 {% block title %}{{ parent() }} | Accueil{% endblock %}
 
 {% block body %}
-    <h1>Liste des sorties</h1>
 
-    {{ include('inc/filtersSorties.html.twig') }}
+{{ include('inc/filtersSorties.html.twig') }}
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -44,10 +43,10 @@
 
                 {# <td>{{ sortie.organisateur.nom }}</td> #}
 
-                <td>
+                <td class="lienTableau">
                     <a href="{{ path('app_participant_show', {id: sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a>
                 </td>
-                <td>
+                <td class="lienTableau">
                     <a href="{{ path('app_sortie_show', {id: sortie.id}) }}">Afficher</a>
                     {% if sortie.organisateur == app.user %}
                         <a href="{{ path('app_sortie_edit', {id: sortie.id}) }}">Modifier</a>
@@ -70,7 +69,7 @@
     </table>
 
     <a href="{{ path('app_sortie_new', {id: app.user.id}) }}">
-        <button class="btnApp mb-4">
+        <button class="btnAppPerso">
             Créer une sortie
         </button>
     </a>
