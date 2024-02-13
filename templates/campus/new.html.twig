@@ -3,9 +3,11 @@
 {% block title %}{{ parent() }} | Nouveau campus{% endblock %}
 
 {% block body %}
-    <h1>Création d'un campus</h1>
+    <h4>Création d'un campus</h4>
 
     {{ include('campus/_form.html.twig') }}
 
-    <a href="{{ path('app_campus_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_campus_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 {% endblock %}

@@ -3,9 +3,9 @@
 {% block title %}{{ parent() }} | Campus{% endblock %}
 
 {% block body %}
-    <h1>Liste des campus</h1>
+    <h4>Liste des campus</h4>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
@@ -18,7 +18,7 @@
             <tr>
                 <td>{{ campus.id }}</td>
                 <td>{{ campus.nom }}</td>
-                <td>
+                <td class="lienTableau">
                     <a href="{{ path('app_campus_show', {'id': campus.id}) }}">Afficher</a>
                     <a href="{{ path('app_campus_edit', {'id': campus.id}) }}">Modifier</a>
                 </td>
@@ -31,5 +31,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_campus_new') }}">Créer</a>
+    <a href="{{ path('app_campus_new') }}"><button class="btnAppPerso">
+            Créer
+        </button></a>
 {% endblock %}

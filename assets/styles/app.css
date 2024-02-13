@@ -12,7 +12,7 @@ body {
     padding: 0 10px;
 }
 header {
-    background-color: #A5A58D;
+    background-color: white;
     padding: 1rem 19.5rem;
 }
 header h1 {
@@ -32,6 +32,8 @@ table a, header a {
     text-decoration: none;
     color: inherit;
 }
+
+
 .header-nav a{
     margin-right: 1.2rem;
 }
@@ -50,6 +52,8 @@ table a, header a {
 .header-nav {
     display: flex;
     height: 20px;
+    color : #2B4D89;
+    font-weight: bold;
 }
 
 nav ul  {
@@ -65,15 +69,20 @@ nav li {
 main {
     flex: 1;
     padding: 1rem 0;
-    background-color: #FFF1E6;
+    background-color: #2B4D89;
+    color:white;
 }
 main h2 {
      margin-top: 0;
  }
+main a {
+    color : white;
+}
 footer {
     padding: 1rem 0 1rem 0;
     text-align: center;
-    background-color: #EDDCD2;
+    background-color:white;
+    color: #2B4D89;
 }
 
 .team-members article {
@@ -143,6 +152,19 @@ select {
     border-radius: 5px;
     margin: 5px 0;
 }
+.btnAppPerso {
+    color:white;
+    border-style: solid;
+    border-color:white;
+    border-radius: 5px;
+    background-color: #2B4D89;
+    margin-bottom: 10px;
+    width:130px;
+}
+
+.lienTableau a {
+    color : #2B4D89;
+}
 
 tr {
     height: 35px;
@@ -160,6 +182,7 @@ tr {
 .user-nav {
     display :block;
     width: 170px;
+    color : #2B4D89;
 }
 .user-logo {
     display: block;

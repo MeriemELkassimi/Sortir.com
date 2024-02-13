@@ -3,11 +3,13 @@
 {% block title %}{{ parent() }} |Modification d'un participant{% endblock %}
 
 {% block body %}
-    <h1>Modification du participant</h1>
+    <h4>Modification du participant</h4>
 
     {{ include('participant/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_participant_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_participant_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 
     {{ include('participant/_delete_form.html.twig') }}
 {% endblock %}

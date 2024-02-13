@@ -3,9 +3,9 @@
 {% block title %}{{ parent() }} | Lieux{% endblock %}
 
 {% block body %}
-    <h1>Liste des lieux</h1>
+    <h4>Liste des lieux</h4>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
@@ -24,7 +24,7 @@
                 <td>{{ lieu.rue }}</td>
                 <td>{{ lieu.latitude }}</td>
                 <td>{{ lieu.longitude }}</td>
-                <td>
+                <td class="lienTableau">
                     <a href="{{ path('app_lieu_show', {'id': lieu.id}) }}">Afficher</a>
                     <a href="{{ path('app_lieu_edit', {'id': lieu.id}) }}">Modifier</a>
                 </td>
@@ -37,5 +37,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_lieu_new') }}">Créer</a>
+    <a href="{{ path('app_lieu_new') }}"><button class="btnAppPerso">
+            Créer
+        </button></a>
 {% endblock %}

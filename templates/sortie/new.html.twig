@@ -3,9 +3,11 @@
 {% block title %}{{ parent() }} | Nouvelle sortie{% endblock %}
 
 {% block body %}
-    <h1>Création d'une sortie</h1>
+    <h4>Création d'une sortie</h4>
 
     {{ include('sortie/_form.html.twig') }}
 
-    <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">
+            Retour à la liste
+        </button></a>
 {% endblock %}
