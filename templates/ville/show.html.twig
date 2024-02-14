@@ -22,15 +22,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_ville_index') }}"><button class="btnAppPerso">
-            Retour à la liste
-        </button></a>
+    <a href="{{ path('app_ville_index') }}"><button class="btnAppPerso">Retour à la liste</button></a>
 
-    <div>
-        <a href="{{ path('app_ville_edit', {'id': ville.id}) }}"><button class="btnAppPerso">
-            Modifier
-        </button></a>
-    </div>
+    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}"><button class="btnAppPerso">Modifier</button></a>
 
     {{ include('ville/_delete_form.html.twig') }}
 {% endblock %}
