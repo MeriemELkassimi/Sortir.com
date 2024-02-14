@@ -44,7 +44,12 @@
                 </td>
 
                 <!--  <td>{{ participant.image }}</td> -->
-                <td>{{ participant.campus.nom }}</td>
+
+                <td>
+                   {% if (participant.campus) %}
+                        {{ participant.campus.nom }}
+                    {% endif %}
+                </td>
                 <td class="lienTableau">
                     <a href="{{ path('app_participant_show', {'id': participant.id}) }}">Afficher</a>
                     <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
@@ -58,7 +63,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_participant_new') }}"><button class="btnAppPerso">
-            Créer
-        </button></a>
+    <a href="{{ path('app_register') }}"><button class="btnAppPerso">Créer</button></a>
 {% endblock %}

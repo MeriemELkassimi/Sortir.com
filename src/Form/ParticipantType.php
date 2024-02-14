@@ -7,6 +7,7 @@ use App\Entity\Participant;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +22,7 @@ class ParticipantType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('telephone')
-           // ->add('isActif')
+
             ->add('pseudo')
             //->add('image')
             //->add('sorties', EntityType::class, [
@@ -33,6 +34,9 @@ class ParticipantType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'nom',
             ])
+            ->add('isActif', CheckboxType::class, [
+                'label' => 'Actif',
+                'required' => false])
         ;
     }
 
