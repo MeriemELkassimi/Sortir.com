@@ -46,13 +46,14 @@
 
         </tbody>
     </table>
-    {% if  is_granted('ROLE_ADMIN')%}
+    {% if is_granted('ROLE_ADMIN')%}
         <a href="{{ path('app_participant_index') }}"><button class="btnAppPerso">Retour à la liste</button></a>
+        {{ include('participant/_delete_form.html.twig') }}
     {% endif %}
-
+    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}"><button class="btnAppPerso">Modifier</button></a>
     <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">Retour à l'accueil</button></a>
 
-    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}"><button class="btnAppPerso">Modifier</button></a>
 
-    {{ include('participant/_delete_form.html.twig') }}
+
+
 {% endblock %}

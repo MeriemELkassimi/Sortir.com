@@ -1,0 +1,32 @@
+{% extends '/base.html.twig' %}
+
+{% block title %}{{ parent() }} | CJFMS{% endblock %}
+
+{% block body %}
+    <h4>CJFMS</h4>
+    <br>
+    <div class="container">
+        <p>Ce site a été réalisé dans le cadre du Projet "Développement d'une application web côté serveur avec Symfony" par :</p>
+        <div class="auteurs">
+            <p><span style="font-size: 30px;"><strong>C</strong></span>hancelle</p>
+            <p><span style="font-size: 30px;"><strong>J</strong></span>-<span style="font-size: 30px;"><strong>F</strong></span>rançois</p>
+            <p><span style="font-size: 30px;"><strong>M</strong></span>eriem</p>
+            <p><span style="font-size: 30px;"><strong>S</strong></span>arah</p>
+            <br>
+            <p style="font-style: italic">Campus en ligne - D2WM-2309</p>
+            <p style="font-style: italic">(PHPStorm - PhpMyAdmin 5.2.1 - Symfony 6.4.3 - GitHub - WampServer 3.3.2)</p>
+            <br>
+            <p>Superviseur : Hervé Bernard</p>
+            <div class="logo-ENI-inv">
+                <img src="{{ asset('img/eni-inv.png') }}" alt="logo ENI" title="logo ENI">
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+    <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">Retour</button></a>
+
+
+{% endblock %}
+

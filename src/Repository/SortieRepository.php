@@ -27,13 +27,20 @@ class SortieRepository extends ServiceEntityRepository
      */
     public function findFilteredSorties($oFilters, $oUser): array
     {
-        $queryBuilder=$this->createQueryBuilder('sortie')
-            ->andWhere('sortie.campus = :campus')
-            ->setParameter('campus', $oFilters->getCampus())
+        $queryBuilder=$this->createQueryBuilder('sortie');
 
+        if ($oFilters->getCampus()) {
+            $queryBuilder
+            ->andWhere('sortie.campus = :campus')
+            ->setParameter('campus', $oFilters->getCampus());
+        }
+
+        if ($oFilters->getDateDebut() and $oFilters->getDateFin() ) {
+            $queryBuilder
             ->andWhere('(sortie.dateHeureDebut <= :date_fin AND sortie.dateHeureDebut >= :date_debut)')
             ->setParameter('date_fin', $oFilters->getDateFin())
             ->setParameter('date_debut', $oFilters->getDateDebut());
+        }
 
         if ($oFilters->isPassees()) {
             $queryBuilder
@@ -44,18 +51,40 @@ class SortieRepository extends ServiceEntityRepository
         if ($oFilters->isOrganisateur()) {
             $queryBuilder
                 ->andWhere('sortie.organisateur = :orga')
-                ->setParameter('orga', true);
+                ->setParameter('orga', $oUser);
         }
 
         if ($oFilters->isInscrit()) {
             $queryBuilder
                 ->join('sortie.participants', 'participant')
                 ->andWhere('participant.id = :insc')
-                ->setParameter('insc',true);
+                ->setParameter('insc',$oUser);
         }
 
+        if ($oFilters->isPasInscrit()) {
 
-            //->setParameter('etat_passee', $oFilters->isPassees())
+
+            $queryBuilder
+                ->leftJoin('sortie.participants', 'participant')
+                ->andWhere('participant.id != :pasInsc OR participant.id IS NULL')
+                ->setParameter('pasInsc',$oUser);
+        }
+
+        /*
+         *
+         * $queryBuilder
+            ->leftJoin('sortie.participants', 'participant', 'WITH', 'participant.id = :insc')
+            ->andWhere($queryBuilder->expr()->isNull('participant.id'))
+            ->setParameter('insc', $oUser);
+
+        $queryBuilder
+        ->leftJoin('sortie.participants', 'participant')
+        ->andWhere('participant.id != :insc OR participant.id IS NULL')
+        ->setParameter('insc', $oUser);
+        }
+        */
+
+
 
         $queryBuilder->orderBy('sortie.id', 'ASC')
             ->setMaxResults(10);

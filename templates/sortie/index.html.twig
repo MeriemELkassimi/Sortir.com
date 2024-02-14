@@ -50,10 +50,15 @@
                         <a href="{{ path('app_sortie_show', {id: sortie.id}) }}">Afficher</a>
 
                         {% if sortie.organisateur == app.user %}
+
                             <a href="{{ path('app_sortie_edit', {id: sortie.id}) }}">Modifier</a>
                             {% if sortie.etat.libelle == "Créée" %}
                                 <a href="{{ path('app_sortie_edit', {id: sortie.id}) }}">Publier</a>
                             {% endif %}
+                            {% if sortie.etat.libelle == "Ouverte" or sortie.etat.libelle == "Clôturée"%}
+                                <a href="{{ path('app_sortie_annuler', {id: sortie.id}) }}">Annuler</a>
+                            {% endif %}
+
                         {% endif %}
 
                         {% if sortie.etat.libelle == "Ouverte" or sortie.etat.libelle == "Clôturée"%}
