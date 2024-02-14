@@ -30,7 +30,12 @@
 
             <tr>
                 <th>Campus</th>
-                <td>{{ participant.campus.nom }}</td>
+                <td>
+                    {% if (participant.campus) %}
+                        {{ participant.campus.nom }}
+                    {% endif %}
+                </td>
+
             </tr>
 
             {% if participant.image is not empty %}
@@ -42,20 +47,12 @@
         </tbody>
     </table>
     {% if  is_granted('ROLE_ADMIN')%}
-        <a href="{{ path('app_participant_index') }}"><button class="btnAppPerso">
-                Retour à la liste
-            </button></a>
-     {%else%}
-        <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">
-                Retour à la liste
-            </button></a>
+        <a href="{{ path('app_participant_index') }}"><button class="btnAppPerso">Retour à la liste</button></a>
     {% endif %}
 
-    <div>
-        <a href="{{ path('app_participant_edit', {'id': participant.id}) }}"><button class="btnAppPerso">
-            Modifier
-        </button></a>
-    </div>
+    <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">Retour à l'accueil</button></a>
+
+    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}"><button class="btnAppPerso">Modifier</button></a>
 
     {{ include('participant/_delete_form.html.twig') }}
 {% endblock %}
