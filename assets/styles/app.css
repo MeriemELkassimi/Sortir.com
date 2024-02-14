@@ -117,8 +117,12 @@ footer {
 }
 label {
     display:block;
-    width: 150px;
+    width: 170px;
 }
+#registration_form_agreeTerms {
+
+}
+
 input,
 textarea,
 select {
@@ -159,17 +163,21 @@ select {
     border-radius: 5px;
     background-color: #2B4D89;
     margin-bottom: 10px;
-    width:130px;
+    margin-right: 7px;
+    width:140px;
 }
 
 .lienTableau a {
     color : #2B4D89;
+    text-decoration: underline;
 }
 
 tr {
     height: 35px;
 }
-
+.col1-sortie-show th {
+    width: 210px;
+}
 .header-top {
     display: flex;
     justify-content: space-between;
