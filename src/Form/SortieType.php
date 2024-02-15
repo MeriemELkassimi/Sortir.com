@@ -66,14 +66,7 @@ class SortieType extends AbstractType
                 'query_builder' => function (LieuRepository  $lieuRepository) {
                     return $lieuRepository->createQueryBuilder('l')->orderBy('l.nom', 'ASC');
                 }
-            ])
-            ->add('annulation',TextareaType::class, [
-                'label' => 'Motif :',
-                'attr' => ['rows' => 3]
-            ])
-
-
-    ;
+            ]);
 
     }
 

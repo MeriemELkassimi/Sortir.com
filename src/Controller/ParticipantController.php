@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Form\ParticipantType;
+use App\Form\ProfilType;
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,6 +59,14 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+    #[Route('/organisateur/{id}', name: 'app_participant_organisateurshow', methods: ['GET'])]
+    public function organisateurShow(Participant $participant): Response
+    {
+        return $this->render('participant/organisateurshow.html.twig', [
+            'participant' => $participant,
+        ]);
+    }
+
     #[Route('/{id}/edit', name: 'app_participant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
     {
@@ -76,6 +85,26 @@ class ParticipantController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/{id}/profil', name: 'app_profil_edit', methods: ['GET', 'POST'])]
+    public function profil(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ProfilType::class, $participant);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('participant/profil.html.twig', [
+            'participant' => $participant,
+            'form' => $form,
+        ]);
+    }
+    
     #[IsGranted(new Expression('is_granted("ROLE_ADMIN")'))]
     #[Route('/{id}', name: 'app_participant_delete', methods: ['POST'])]
     public function delete(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
