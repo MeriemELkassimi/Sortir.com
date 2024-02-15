@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Campus;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -23,23 +24,23 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Sortie[] Returns an array of Sortie objects
+     * @return Paginator Returns an array of Sortie objects
      */
-    public function findFilteredSorties($oFilters, $oUser): array
+    public function findFilteredSorties($oFilters, $oUser): Paginator
     {
-        $queryBuilder=$this->createQueryBuilder('sortie');
+        $queryBuilder = $this->createQueryBuilder('sortie');
 
         if ($oFilters->getCampus()) {
             $queryBuilder
-            ->andWhere('sortie.campus = :campus')
-            ->setParameter('campus', $oFilters->getCampus());
+                ->andWhere('sortie.campus = :campus')
+                ->setParameter('campus', $oFilters->getCampus());
         }
 
-        if ($oFilters->getDateDebut() and $oFilters->getDateFin() ) {
+        if ($oFilters->getDateDebut() and $oFilters->getDateFin()) {
             $queryBuilder
-            ->andWhere('(sortie.dateHeureDebut <= :date_fin AND sortie.dateHeureDebut >= :date_debut)')
-            ->setParameter('date_fin', $oFilters->getDateFin())
-            ->setParameter('date_debut', $oFilters->getDateDebut());
+                ->andWhere('(sortie.dateHeureDebut <= :date_fin AND sortie.dateHeureDebut >= :date_debut)')
+                ->setParameter('date_fin', $oFilters->getDateFin())
+                ->setParameter('date_debut', $oFilters->getDateDebut());
         }
 
         if ($oFilters->isPassees()) {
@@ -56,60 +57,34 @@ class SortieRepository extends ServiceEntityRepository
 
         if ($oFilters->isInscrit()) {
             $queryBuilder
-                ->join('sortie.participants', 'participant')
+                ->leftJoin('sortie.participants', 'participant')
                 ->andWhere('participant.id = :insc')
-                ->setParameter('insc',$oUser);
+                ->setParameter('insc', $oUser);
         }
 
-        if ($oFilters->isPasInscrit()) {
 
+        if ($oFilters->isPasInscrit()) {
+            $subQueryBuilder = $this->createQueryBuilder('sort');
+            $subQueryBuilder
+                ->select('s.id')
+                ->from('App\Entity\Sortie', 's')
+                ->join('s.participants', 'p')
+                ->where('p.id = :userId');
 
             $queryBuilder
                 ->leftJoin('sortie.participants', 'participant')
-                ->andWhere('participant.id != :pasInsc OR participant.id IS NULL')
-                ->setParameter('pasInsc',$oUser);
+                ->andWhere($queryBuilder->expr()->notIn('sortie.id', $subQueryBuilder->getDQL()))
+                ->setParameter('userId', $oUser);
+
         }
-
-        /*
-         *
-         * $queryBuilder
-            ->leftJoin('sortie.participants', 'participant', 'WITH', 'participant.id = :insc')
-            ->andWhere($queryBuilder->expr()->isNull('participant.id'))
-            ->setParameter('insc', $oUser);
-
-        $queryBuilder
-        ->leftJoin('sortie.participants', 'participant')
-        ->andWhere('participant.id != :insc OR participant.id IS NULL')
-        ->setParameter('insc', $oUser);
-        }
-        */
-
-
 
         $queryBuilder->orderBy('sortie.id', 'ASC')
             ->setMaxResults(10);
-        return $queryBuilder->getQuery()->getResult();
 
+        $paginator = new Paginator($queryBuilder);
+        return $paginator;
 
-
-
-           /* $this->createQueryBuilder('sortie')
-            ->andWhere('sortie.campus = :campus')
-            ->setParameter('campus', $oFilters->getCampus())
-
-            ->andWhere('(sortie.dateHeureDebut <= :date_fin AND sortie.dateHeureDebut >= :date_debut)')
-            ->setParameter('date_fin', $oFilters->getDateFin())
-            ->setParameter('date_debut', $oFilters->getDateDebut())
-
-            ->andWhere('(sortie.etat = :etat_passee )')
-            ->setParameter('etat_passee', $oFilters->isPassees())
-
-            ->orderBy('sortie.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();*/
     }
-
 
 
 //    public function findOneBySomeField($value): ?Sortie
