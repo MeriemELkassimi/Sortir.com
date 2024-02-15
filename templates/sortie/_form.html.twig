@@ -1,5 +1,14 @@
 {{ form_start(form) }}
+    <p>Campus : {{ app.user.campus.nom }}</p>
+
     {{ form_widget(form) }}
+
+   {#  <p>Rue : {{ sortie.lieu.rue }}</p>#}
+    {#  <p>Code Postal : {{ sortie.ville.codePostal }}</p>#}
+
     <br>
     <button class="btnAppPerso">{{ button_label|default('Enregistrer') }}</button>
+    <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">Publier la sortie</button></a>
+
+
 {{ form_end(form) }}
