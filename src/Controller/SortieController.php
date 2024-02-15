@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Form\FiltersSortiesFormType;
 use App\Form\SortieType;
@@ -34,6 +35,9 @@ class SortieController extends AbstractController
             //$sorties = $sortieRepository->findCurrentSorties();
         }
 
+        // ????? gestion des états dans une boucle
+
+
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sorties,
             'filtersForm' => $form->createView(),
@@ -45,11 +49,17 @@ class SortieController extends AbstractController
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $organisateur = $this->getUser();
         $sortie = new Sortie();
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $etatCree = $entityManager->getRepository(Etat::class)->findOneBy(['libelle' => 'créée']);
+            $sortie->setEtat($etatCree);
+            $sortie->setOrganisateur($organisateur);
+            $sortie->setCampus($organisateur->getCampus());
+
             $entityManager->persist($sortie);
             $entityManager->flush();
 
@@ -77,6 +87,8 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $etatCree = $entityManager->getRepository(Etat::class)->findOneBy(['libelle' => 'ouverte']);
+            $sortie->setEtat($etatCree);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
@@ -86,6 +98,31 @@ class SortieController extends AbstractController
             'sortie' => $sortie,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/annuler/{id}', name: 'app_sortie_annuler', methods: ['POST', 'GET'])]
+    public function annuler(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        // $sortie = new Sortie();
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $etatCree = $entityManager->getRepository(Etat::class)->findOneBy(['libelle' => 'annulée']);
+            $sortie->setEtat($etatCree);
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('sortie/annuler.html.twig', [
+            'sortie' => $sortie,
+            'form' => $form,
+        ]);
+
+
     }
 
     #[Route('/{id}', name: 'app_sortie_delete', methods: ['POST'])]
@@ -120,5 +157,12 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/cjfms', name: 'app_sortie_cjfms')]
+    public function cjfms()
+    {
+
+        return $this->render('sortie/cjfms');
     }
 }

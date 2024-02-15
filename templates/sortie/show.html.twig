@@ -32,6 +32,12 @@
                 <td>{{ sortie.infosSortie }}</td>
             </tr>
 
+            {% if (sortie.etat.libelle == "Annulée") %}
+                <tr>
+                    <th>Motif annulation</th>
+                    <td>{{ sortie.annulation }}</td>
+                </tr>
+            {% endif %}
 
         </tbody>
     </table>
@@ -49,7 +55,7 @@
         {% for participant in sortie.participants %}
             <tr>
                 <td>{{ participant.pseudo }}</td>
-                <td>{{ participant.prenom }} {{ participant.nom }}</td>
+                <td class="lienTableau"><a href="{{ path('app_participant_show', {id: participant.id}) }}" >{{ participant.prenom }} {{ participant.nom }}</a></td>
             </tr>
         {% else %}
             <tr>
@@ -61,7 +67,9 @@
 
     <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">Retour à la liste</button></a>
 
-    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}"><button class="btnAppPerso">Modifier</button></a>
+    {% if  is_granted('ROLE_ADMIN')%}
+        <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}"><button class="btnAppPerso">Modifier</button></a>
+        {{ include('sortie/_delete_form.html.twig') }}
+    {% endif %}
 
-    {{ include('sortie/_delete_form.html.twig') }}
 {% endblock %}

@@ -242,3 +242,18 @@ form > div {
 #sortie label {
     width: 200px;
 }
+
+.auteurs {
+    margin: 0 40px 0 40px;
+}
+.auteurs p {
+    margin-bottom: 5px;
+}
+.logo-ENI-inv {
+    text-align: center;
+    margin: 20px;
+}
+.logo-ENI-inv img{
+    width: 55px;
+    height: 55px;
+}
