@@ -7,13 +7,16 @@ use App\Form\ParticipantType;
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/participant')]
 class ParticipantController extends AbstractController
 {
+    #[IsGranted(new Expression('is_granted("ROLE_ADMIN")'))]
     #[Route('/', name: 'app_participant_index', methods: ['GET'])]
     public function index(ParticipantRepository $participantRepository): Response
     {
@@ -21,7 +24,7 @@ class ParticipantController extends AbstractController
             'participants' => $participantRepository->findAll(),
         ]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_ADMIN")'))]
     #[Route('/new', name: 'app_participant_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -64,7 +67,8 @@ class ParticipantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('participant/edit.html.twig', [
@@ -72,7 +76,7 @@ class ParticipantController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted(new Expression('is_granted("ROLE_ADMIN")'))]
     #[Route('/{id}', name: 'app_participant_delete', methods: ['POST'])]
     public function delete(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
     {
