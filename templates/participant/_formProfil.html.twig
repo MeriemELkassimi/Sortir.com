@@ -7,10 +7,9 @@
     {{ form_row(form.telephone) }}
     {{ form_row(form.pseudo) }}
     {{ form_row(form.campus) }}
-    {{ form_row(form.isActif) }}
 
     <br>
-    <a href="{{ path('app_participant_index') }}"><button class="btnAppPerso">Mettre à jour</button></a>
+    <button class="btnAppPerso">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
 
 
