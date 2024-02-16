@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Participant{% endblock %}
+{% block title %}{{ parent() }} | Organisateur{% endblock %}
 
 {% block body %}
     <h4>Profil</h4>
@@ -46,14 +46,6 @@
 
         </tbody>
     </table>
-
-    {% if is_granted('ROLE_ADMIN')%}
-        <a href="{{ path('app_participant_index') }}"><button class="btnAppPerso">Retour à la liste</button></a>
-
-        {{ include('participant/_delete_form.html.twig') }}
-    {% endif %}
-
-    <a href="{{ path('app_profil_edit', {'id': participant.id}) }}"><button class="btnAppPerso">Modifier</button></a>
 
     <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">Retour à l'accueil</button></a>
 
