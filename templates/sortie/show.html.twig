@@ -12,6 +12,10 @@
                 <td>{{ sortie.nom }}</td>
             </tr>
             <tr>
+                <th>Campus</th>
+                <td>{{ sortie.campus.nom }}</td>
+            </tr>
+            <tr>
                 <th>Date et heure de début</th>
                 <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d/m/Y  -  H:i') : '' }}</td>
             </tr>
@@ -30,6 +34,14 @@
             <tr>
                 <th>Infos sortie</th>
                 <td>{{ sortie.infosSortie }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ sortie.lieu.nom }}, {{ sortie.lieu.rue }} à {{ sortie.lieu.ville.nom }} ({{ sortie.lieu.ville.codePostal }})</td>
+            </tr>
+            <tr>
+                <th>Coordonnées GPS</th>
+                <td>latitude : {{ sortie.lieu.latitude | number_format(2, ',', '.')}}°   ||    longitude : {{ sortie.lieu.longitude | number_format(2, ',', '.')}}°</td>
             </tr>
 
             {% if (sortie.etat.libelle == "Annulée") %}
@@ -55,7 +67,7 @@
         {% for participant in sortie.participants %}
             <tr>
                 <td>{{ participant.pseudo }}</td>
-                <td class="lienTableau"><a href="{{ path('app_participant_show', {id: participant.id}) }}" >{{ participant.prenom }} {{ participant.nom }}</a></td>
+                <td class="lienTableau"><a href="{{ path('app_participant_organisateurshow', {id: participant.id}) }}" >{{ participant.prenom }} {{ participant.nom }}</a></td>
             </tr>
         {% else %}
             <tr>
@@ -67,7 +79,7 @@
 
     <a href="{{ path('app_sortie_index') }}"><button class="btnAppPerso">Retour à la liste</button></a>
 
-    {% if  is_granted('ROLE_ADMIN')%}
+    {% if is_granted('ROLE_ADMIN')%}
         <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}"><button class="btnAppPerso">Modifier</button></a>
         {{ include('sortie/_delete_form.html.twig') }}
     {% endif %}

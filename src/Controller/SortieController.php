@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Form\FiltersSortiesFormType;
+use App\Form\SortieAnnulerType;
 use App\Form\SortieType;
 use App\Entity\FiltersSorties;
 use App\Repository\EtatRepository;
@@ -58,7 +59,7 @@ class SortieController extends AbstractController
 
            //Ancienne méthode, sans repository
 
-/*
+            /*
            if($etatActuel == "Ouverte"){
                if (count($sortie->getParticipants()) == $sortie->getNbInscriptionsMax() || $sortie->getDateLimiteInscription() < $dateDuJour) {
                    $sortie->getEtat()->setLibelle("Clôturée");
@@ -91,11 +92,11 @@ class SortieController extends AbstractController
 
            // Passage activité en cours à activité terminée
 
-           if($etatActuel == "Activité en cours"){
+           /*if($etatActuel == "Activité en cours"){
                if ($sortie->getDateHeureDebut() < $dateDuJour){
                    $sortie->getEtat()->setLibelle("Passée");
                }
-           }
+           }*/
 
            // Archivage des activités
 
@@ -105,7 +106,6 @@ class SortieController extends AbstractController
                }
            }*/
 
-
             /* Changement d'état déplacé dans la fonction removeParticipant
              *
              // Quand une sortie est clôturée (nb max inscrits atteint), mais qu'un participant se désiste
@@ -113,7 +113,6 @@ class SortieController extends AbstractController
                if ((count($sortie->getParticipants()) < $sortie->getNbInscriptionsMax()) && ($sortie->getDateLimiteInscription() >= $dateDuJour)) {
                    $sortie->getEtat()->setLibelle("Ouverte");
                }
-
            }
            */
 
@@ -121,11 +120,8 @@ class SortieController extends AbstractController
             $entityManager->flush();
         }
 
-
        //En utilisant un service -> lors de la mise en place, penser au paramètre dans la déclaration de fonction
        // $sorties-> $etatManager->gererEtats($sorties);
-
-
 
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sorties,
@@ -178,6 +174,8 @@ class SortieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $etatCree = $entityManager->getRepository(Etat::class)->findOneBy(['libelle' => 'ouverte']);
             $sortie->setEtat($etatCree);
+
+            $entityManager->persist($sortie);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
@@ -193,7 +191,7 @@ class SortieController extends AbstractController
     public function annuler(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
 
-        $form = $this->createForm(SortieType::class, $sortie);
+        $form = $this->createForm(SortieAnnulerType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -277,7 +275,6 @@ class SortieController extends AbstractController
     #[Route('/cjfms', name: 'app_sortie_cjfms')]
     public function cjfms()
     {
-
         return $this->render('sortie/cjfms');
     }
 }
