@@ -74,13 +74,16 @@
                     {% endif %}
                 </td>
             </tr>
-
-        {% else %}
-            <tr>
-                <td colspan="9">Pas de sortie enregistrée!</td>
-            </tr>
         {% endif %}
+
     {% endfor %}
+
+    {%  if sorties == null %}
+        <tr>
+            <td colspan="9">Pas de sortie enregistrée!</td>
+        </tr>
+    {% endif %}
+
     </tbody>
 </table>
 
